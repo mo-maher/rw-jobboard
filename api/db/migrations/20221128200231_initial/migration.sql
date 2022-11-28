@@ -1,0 +1,24 @@
+-- CreateTable
+CREATE TABLE "Job" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "desc" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Tag" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "JobsOnTag" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "tagId" INTEGER NOT NULL,
+    "jobId" INTEGER NOT NULL,
+    CONSTRAINT "JobsOnTag_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "Tag" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "JobsOnTag_jobId_fkey" FOREIGN KEY ("jobId") REFERENCES "Job" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "JobsOnTag_tagId_jobId_key" ON "JobsOnTag"("tagId", "jobId");
